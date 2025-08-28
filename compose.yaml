@@ -1,0 +1,30 @@
+services:
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    volumes:
+      - ./conf:/etc/caddy
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+  open-webui:
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:ollama
+    volumes:
+      - open-webui:/app/backend/data
+      - ollama:/root/.ollama
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+
+volumes:
+  caddy_data:
+  caddy_config:
+  open-webui:
+  ollama:

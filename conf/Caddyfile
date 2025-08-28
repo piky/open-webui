@@ -1,0 +1,7 @@
+swc-center.khainui.com {
+	reverse_proxy open-webui:8080
+}
+
+localhost {
+	respond "Hello, world!"
+}
