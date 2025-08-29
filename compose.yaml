@@ -1,4 +1,19 @@
 services:
+  open-webui:
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:ollama
+    volumes:
+      - open-webui:/app/backend/data
+      - ollama:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"] # Or a more specific endpoint like /health if available
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s # Give the container some time to start before checking
+
+
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -7,6 +22,9 @@ services:
       - ./site:/srv
       - caddy_data:/data
       - caddy_config:/config
+    depends_on:
+      open-webui:
+        condition: service_healthy
 
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -16,5 +34,7 @@ services:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
 
 volumes:
+  open-webui:
+  ollama:
   caddy_data:
   caddy_config:
