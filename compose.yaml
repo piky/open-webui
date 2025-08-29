@@ -8,13 +8,13 @@ services:
       - caddy_data:/data
       - caddy_config:/config
 
-  open-webui:
-    container_name: open-webui
-    image: ghcr.io/open-webui/open-webui:ollama
-    volumes:
-      - open-webui:/app/backend/data
-      - ollama:/root/.ollama
-    restart: unless-stopped
+  # open-webui:
+  #   container_name: open-webui
+  #   image: ghcr.io/open-webui/open-webui:ollama
+  #   volumes:
+  #     - open-webui:/app/backend/data
+  #     - ollama:/root/.ollama
+  #   restart: unless-stopped
 
   cloudflared:
     image: cloudflare/cloudflared:latest
