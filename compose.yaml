@@ -6,6 +6,13 @@ services:
       - open-webui:/app/backend/data
       - ollama:/root/.ollama
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"] # Or a more specific endpoint like /health if available
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s # Give the container some time to start before checking
+
 
   caddy:
     image: caddy:latest
@@ -25,9 +32,6 @@ services:
     command: tunnel --no-autoupdate run
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
-    depends_on:
-      caddy:
-        condition: service_healthy
 
 volumes:
   open-webui:
