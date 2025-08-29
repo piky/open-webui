@@ -1,3 +1,3 @@
-localhost {
+swc-center.khainui.com {
 	respond "Hello, world!"
 }
