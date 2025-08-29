@@ -22,7 +22,7 @@
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [80, 443, 8080],
+	// "forwardPorts": [80, 443, 8080],
 
 	// Uncomment the next line if you want start specific services in your Docker Compose config.
 	"runServices": ["caddy", "open-webui", "cloudflared"]
