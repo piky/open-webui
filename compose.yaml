@@ -13,15 +13,19 @@ services:
       retries: 3
       start_period: 30s # Give the container some time to start before checking
 
-
   caddy:
     image: caddy:latest
     restart: unless-stopped
+    environment:
+      - PUBLIC_HOSTNAME=${PUBLIC_HOSTNAME:-localhost}   # Public hostname that is configured in CloudFlare Tunnels
+      - BACKEND_HOSTNAME=${BACKEND_HOSTNAME:-open-webui}
+      - BACKEND_PORT=${BACKEND_PORT:-8080}
     volumes:
-      - ./conf:/etc/caddy
+      # - ./conf:/etc/caddy   # Uncomment this line to use custom Caddyfile 
       - ./site:/srv
       - caddy_data:/data
       - caddy_config:/config
+    command: caddy reverse-proxy --from ${PUBLIC_HOSTNAME}:80 --to ${BACKEND_HOSTNAME}:${BACKEND_PORT}
     depends_on:
       open-webui:
         condition: service_healthy
