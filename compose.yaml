@@ -13,7 +13,6 @@ services:
       retries: 3
       start_period: 30s # Give the container some time to start before checking
 
-
   caddy:
     image: caddy:latest
     restart: unless-stopped
