@@ -1,5 +1,5 @@
 # Self-hosted Open-WebUI with Ollama on GitHub Codespace
-Running Ollama with model on Docker Destop locally is a bad idea.
+Running Ollama with a model on Docker Desktop locally is a bad idea.
 
 ## Technology stack
 1. Ollama is a framework for building and running LLM locally.
