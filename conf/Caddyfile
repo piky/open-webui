@@ -1,3 +1,0 @@
-ai.khainui.com:80 {
-	reverse_proxy open-webui:8080
-}
