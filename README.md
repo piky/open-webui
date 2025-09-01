@@ -47,7 +47,7 @@ flowchart TD
                 rag_doc["Document Store Retrieval"]
             end
             subgraph Ollama
-                ollama["LLMs API Endpoints"]
+                ollama["LLM API Endpoints"]
             end
         end
     end
