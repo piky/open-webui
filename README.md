@@ -29,9 +29,9 @@ flowchart TD
     end
 
     %% Corporate network behind firewall
-    subgraph Docker
+    subgraph Codespace or DevContainer
 
-        subgraph Bridge Network
+        subgraph Bridge Network or DevCotainer
 
             subgraph routing
                 firewall["Cloudflared"]
