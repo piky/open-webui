@@ -16,22 +16,27 @@ Running Ollama with a model on Docker Desktop locally is a bad idea.
 ```mermaid
 flowchart TD
     %% External actors
-    subgraph Public
-        user["fa:fa-user Prompt Engineer\n(web browser)"]
-            subgraph OpenAI
-                openai["LLM API Endpoints"]
-            end
+    subgraph Public Internet
+
+        %% Cloudflare side
+        subgraph CloudflareEdge
+            cf["Cloudflare Zero Trust"]
+        end
+
+        subgraph OpenAI
+            openai["LLM API Endpoints"]
+        end
     end
 
-    %% Cloudflare side
-    subgraph CloudflareEdge
-        cf["Cloudflare Zero Trust"]
+    %% End-users
+    subgraph User
+        user["fa:fa-user Prompt Engineer\n(web browser)"]
     end
 
     %% Corporate network behind firewall
     subgraph Codespace or DevContainer
 
-        subgraph Bridge Network or DevCotainer
+        subgraph Docker Bridge Network
 
             subgraph routing
                 firewall["Cloudflared"]
@@ -46,6 +51,7 @@ flowchart TD
                 rag_web["Web Search Retrieval"]
                 rag_doc["Document Store Retrieval"]
             end
+
             subgraph Ollama
                 ollama["LLM API Endpoints"]
             end
@@ -58,11 +64,11 @@ flowchart TD
     firewall -->|HTTPS| caddy
     caddy --> fe_app
 
-    fe_app --> rag_web
-    fe_app --> rag_doc
-    fe_app -.->|context + prompt| ollama
+    fe_app -.-> rag_web
+    fe_app -.-> rag_doc
+    fe_app -->|context + prompt| ollama
 
-    fe_app -.->|context + prompt| openai
+    fe_app -->|context + prompt| openai
 ```
 ## Required Environment Variables for Cloudflare service
 `TUNNEL_TOKEN` and `PUBLIC_HOSTNAME` must be set as Codespace secret variables or creating `.env` file in the root directory.
