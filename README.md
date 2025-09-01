@@ -63,7 +63,7 @@ flowchart TD
 2. However running Ollama locally with a model on Docker Desktop is not practical.
 3. Therefore, the solution is : `Bring-Your-Own-Model` with API key, such as OpenAI, OpenRouter, GitHub Models, etc.
 4. Open-WebUI as a web-based LLM user interface. It has a built-in ChromaDB as default vector database.
-5. Caddy as a reverse proxy. It is simple configuration but its default HTTPS makes backend services secure. 
+5. Caddy as a reverse proxy. Not only simple configuration but Caddy is the first and only web server to use HTTPS automatically and by default. 
 6. CloudFlare Zero Trust allows public access to backend services over tunnel securely.
 7. Tavily search for enabling Web Search to LLM
 8. Docker Compose to wrap everything up as a portable YAML file
